@@ -94,8 +94,25 @@ def all_authors():
 # def tags1(tag):
 
 
-# @app.route('/top10tags')
-# def top_tags():
+@app.route('/top10tags')
+def top_tags():
+    session = Session(engine)
+
+    top_tags = engine.execute("select quote_tags.tag, count(*) from quote_tags group by quote_tags.tag order by count(quote_tags.tag) desc, quote_tags.tag limit 10").fetchall()
+
+    
+    top_list = []
+    for items in top_tags:
+        top_dict = {}
+        top_dict['tags'] = items[0]
+        top_dict['total'] = items[1]
+        top_list.append(top_dict)
+        
+    #final_quotes_list = ['quotes': quotes_list]
+    return jsonify(top_list)
+
+    session.close()
+
 
 
 
