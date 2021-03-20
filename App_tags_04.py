@@ -33,22 +33,28 @@ def home_page():
 def all_quotes():
     session = Session(engine)
 
-    quotes_all = engine.execute("Select quotes.author_name, quotes.text from quotes").fetchall()
-
+    quotes_all = engine.execute("Select quotes.author_name, quotes.text, quotes.quote_id from quotes").fetchall()
     
     quotes_list = []
     for items in quotes_all:
         quotes_dict = {}
         quotes_dict['author'] = items[0]
-        quotes_dict['text'] = items[1]
+        quotes_dict['text'] = items[1]  
+        quote_id_str=str(items[2])
+
+        query3=text("select Quote_tags.tag from Quote_tags where Quote_tags.quote_id=\'"+quote_id_str.replace('\'','\'\'')+"\'")
+        quote_data = engine.execute(query3).fetchall()
+            
+        tags_list = []
+        for tags in quote_data:
+            tags_list.append(tags[0])
+            
+        quotes_dict['tags'] = tags_list
         quotes_list.append(quotes_dict)
-        
-    #final_quotes_list = ['quotes': quotes_list]
+            
     return (jsonify({'quotes': quotes_list, 'total': len(quotes_list)}))
 
     session.close()
-
-
 
 @app.route('/authors')
 def all_authors():
@@ -67,16 +73,25 @@ def all_authors():
         authors_dict['description'] = items[2]
         authors_dict['count'] = items[3]
 
-        author_quotes = engine.execute("select quotes.text from quotes where quotes.author_name=\'"+items[0].replace('\'','\'\'')+"\'").fetchall()
+        author_quotes = engine.execute("select quotes.text, quotes.quote_id from quotes where quotes.author_name=\'"+items[0].replace('\'','\'\'')+"\'").fetchall()
 
         quotes_list= []
         for quotes in author_quotes:
             quotes_dict = {}
             quotes_dict['text'] = quotes[0]
+            quote_id_str=str(quotes[1])
+
+            query3=text("select Quote_tags.tag from Quote_tags where Quote_tags.quote_id=\'"+quote_id_str.replace('\'','\'\'')+"\'")
+            quote_data = engine.execute(query3).fetchall()
+            
+            tags_list = []
+            for tags in quote_data:
+               tags_list.append(tags[0])
+            
+            quotes_dict['tags'] = tags_list
             quotes_list.append(quotes_dict)
-
+        
         authors_dict['quotes'] = quotes_list
-
         authors_list.append(authors_dict)
 
     return (jsonify({'details': authors_list, 'count': len(authors_list)}))
@@ -91,7 +106,6 @@ def authors2(author_name):
             on author.author_name = :author_name and \
             quotesCount.author_name = author.author_name \
             order by quotesCount.quotes_count desc")
-    # print(query)        
     author_all = engine.execute(query, {'author_name': author_name})
     
     authors_list = []
@@ -100,29 +114,28 @@ def authors2(author_name):
         authors_dict['name'] = items[0]
         authors_dict['born'] = items[1]
         authors_dict['description'] = items[2]
-        authors_dict['count'] = items[3]
+        authors_dict['number_of_quotes'] = items[3]
 
         query2=text("select quotes.text, quotes.quote_id from quotes where quotes.author_name=\'"+items[0].replace('\'','\'\'')+"\'")
-        print(query2)
         author_quotes = engine.execute(query2).fetchall()
-
+        
         quotes_list= []
         for quotes in author_quotes:
             quotes_dict = {}
             quotes_dict['text'] = quotes[0]
-            quotes_list.append(quotes_dict)
             quote_id_str=str(quotes[1])
 
             query3=text("select Quote_tags.tag from Quote_tags where Quote_tags.quote_id=\'"+quote_id_str.replace('\'','\'\'')+"\'")
-            print(query3)
-            quote_tags = engine.execute(query3).fetchall
+            quote_data = engine.execute(query3).fetchall()
+            
             tags_list = []
-            for tags in quote_tags:
-                print(tags[0])
-                         
-        
+            for tags in quote_data:
+               tags_list.append(tags[0])
+            
+            quotes_dict['tags'] = tags_list
+            quotes_list.append(quotes_dict)
+            
         authors_dict['quotes'] = quotes_list
-
         authors_list.append(authors_dict)
 
     return (jsonify({'details': authors_list}))
@@ -139,8 +152,24 @@ def authors2(author_name):
 # def tags1(tag):
 
 
-# @app.route('/top10tags')
-# def top_tags():
+@app.route('/top10tags')
+def top_tags():
+    session = Session(engine)
+
+    top_tags = engine.execute("select quote_tags.tag, count(*) from quote_tags group by quote_tags.tag order by count(quote_tags.tag) desc, quote_tags.tag limit 10").fetchall()
+
+    
+    top_list = []
+    for items in top_tags:
+        top_dict = {}
+        top_dict['tags'] = items[0]
+        top_dict['total'] = items[1]
+        top_list.append(top_dict)
+        
+    #final_quotes_list = ['quotes': quotes_list]
+    return jsonify(top_list)
+
+    session.close()
 
 
 
