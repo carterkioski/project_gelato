@@ -7,29 +7,23 @@
 -- Create tables that other tables are dependent on first to avoid foreign key creation issues
 
 CREATE TABLE Author (
-    author_name varchar(50)   NOT NULL,
-    born varchar(40)   NOT NULL,
-    description text   NOT NULL,
-    CONSTRAINT pk_Author PRIMARY KEY (
-        author_name
-     )
+    author_name 	varchar(50)   	NOT NULL,
+    born 		varchar(40)   	NOT NULL,
+    description 	text   		NOT NULL,
+    CONSTRAINT pk_Author PRIMARY KEY (author_name)
 );
 
 CREATE TABLE Quotes (
-    quote_id serial   NOT NULL,
-    author_name varchar(50)   NOT NULL,
-    text varchar(100)   NOT NULL,
-    CONSTRAINT pk_Quotes PRIMARY KEY (
-        quote_id
-     )
+    quote_id 		serial   	NOT NULL,
+    author_name 	varchar(50)   	NOT NULL,
+    text 		text   		NOT NULL,
+    CONSTRAINT pk_Quotes PRIMARY KEY (quote_id)
 );
 
 CREATE TABLE Quote_tags (
-    quote_id int   NOT NULL,
-    tag text       NOT NULL,
-    CONSTRAINT pk_Quote_tags PRIMARY KEY (
-        quote_id,tag
-     )
+    quote_id 		int   		NOT NULL,
+    tag 		text   		NOT NULL,
+    CONSTRAINT pk_Quote_tags PRIMARY KEY (quote_id,tag)
 );
 
 ALTER TABLE Quotes ADD CONSTRAINT fk_Quotes_author_name FOREIGN KEY(author_name)
