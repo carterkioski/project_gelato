@@ -41,7 +41,7 @@ This project integrates numerous technologies such as: Screen Scraping with Spli
   * [Entity Relationship Diagram Document](Documentation/ERD_Diagram_from_QuickDBD_for_Project_Gelato_Quotes_to_Scrape_DB.docx) - word doc with ERD diagram, QuickDBD input, and QuickDBD Schema output (Note: had to remove all "s
  from the QuickDBD which created problems when run in postgres.
  
-  * [ETL Process Steps](Documentation/ETL process Steps.docx) - Notes on the ETL process in terms of loads and some work done to clean up the data. 
+  * [ETL Process Steps](Documentation/ETL_process_Steps.docx) - Notes on the ETL process in terms of loads and some work done to clean up the data. 
 
   * [Project Requirements](Documentation/project-requirement.md) - Requirements provided for the project. 
 
