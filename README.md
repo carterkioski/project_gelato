@@ -3,7 +3,7 @@
 
 ## Overview
 
-This project integrates numerous technolgies such as: Screen Scraping with Splinter and BeautifulSoup; NoSql database storageof the scraped data using Mongo; ETL using Python, SQL, SQlAlchemy, and Postgres and display of the results using Postgres backend, Python / Flask application and HTML front end to present the results. 
+This project integrates numerous technologies such as: Screen Scraping with Splinter and BeautifulSoup; NoSql database storage of the scraped data using Mongo; ETL using Python, SQL, SQlAlchemy and Postgres; and Postgres backend, Python / Flask application and HTML front end to present the results. 
 
 * Included in this submission are several folders:  
    
@@ -20,9 +20,9 @@ This project integrates numerous technolgies such as: Screen Scraping with Splin
 
 * [Code:](Code)  
 
-  * [Jupyter Notebook for Scraping](Code/scrape_final.ipynb)- scrapes quotes.toscrape.comc and genrates 3 collections in Mongo.
+  * [Jupyter Notebook for Scraping](Code/scrape_final.ipynb)- scrapes quotes.toscrape.com and genrates 3 collections in Mongo.
 
-  * [Jupyter Notebook for Ed's PC to run Scraping](Code/scrape_final_Eds-PC.ipynb)- version of same code aboce that has workaround for installing ChromeDriverManager for Ed's PC that has a bug.  
+  * [Jupyter Notebook for Ed's PC to run Scraping](Code/scrape_final_Eds-PC.ipynb)- version of same code above that has workaround for installing ChromeDriverManager for Ed's PC that has a bug.  
 
   * [App for running the Python/Flask code to display query data](Code/app_final.py)- Routes for 6 queries against the postgres database.  
 
@@ -59,7 +59,7 @@ This project integrates numerous technolgies such as: Screen Scraping with Splin
 
 * [HTML](templates) - HTML and CSS files 
 
-  * [HTML to Run the process](Templates/index.html) - Home page for running the 6 queriesg. 
+  * [HTML to Run the process](templates/index.html) - Home page for running the 6 queriesg. 
 
-  * [CSS to Run the process](Templates/style.css) - Style sheet (not implemented)  
+  * [CSS to Run the process](templates/style.css) - Style sheet (not implemented)  
 
