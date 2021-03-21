@@ -61,5 +61,5 @@ This project integrates numerous technologies such as: Screen Scraping with Spli
 
   * [HTML to Run the process](templates/index.html) - Home page for running the 6 queriesg. 
 
-  * [CSS to Run the process](templates/style.css) - Style sheet (not implemented)  
+  * [CSS to Run the process](templates/styles.css) - Style sheet (not implemented)  
 
